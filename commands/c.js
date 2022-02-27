@@ -77,31 +77,28 @@ async function getTicket(id, message, aToken) {
                         name: "Criado em",
                         value: resp.data["createdTime"].substring(0, 10),
                         inline: true
-                    },
-                    {
-                        name: "Contato",
-                        value: config.contacts[resp.data["contactId"] == null ? "indefinido" : resp.data["contactId"]],
-                        inline: true
-                    }
+                    } //,
+                    // {
+                    //     name: "Contato",
+                    //     value: config.contacts[resp.data["contactId"]],
+                    //     inline: true
+                    // }
                 ],
-                "color": "0xffc9a0",
+                "color": "0xffc9a0",                
             }
 
             // sayMessage = `#${data.data["ticketNumber"]} ${data.data["subject"]} \n` +
             //              `${data.data["webUrl"]} \n` +
             //              `${config.accounts[data.data["accountId"]]} - ${data.data["status"]} \n` +
             //              `Criado em ${data.data["createdTime"].substring(0, 10)} por ${config.contacts[data.data["contactId"]]}`;
-            // try {
-                // message.channel.send({embed});
-                message.channel.send({ embeds: [embed] });
-            // } catch (error) {
-                // message.channel.send('opa opa opa: ');
-            // }
+            
+            message.channel.send({ embeds: [embed] });
+
         } else {
             message.channel.send("[2] Ocorreu um erro ao consumir API do Zoho - \n" + response.data);
             return;
         }
-    }).catch((error) => {
+    }).catch(function(error) {
         message.channel.send("[2] Axios Error " + "\n" + error);
         return;
     })
