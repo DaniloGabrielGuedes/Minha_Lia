@@ -5,8 +5,9 @@ const client = new Client({ partials: ["CHANNEL"], intents: [
     Intents.FLAGS.DIRECT_MESSAGES, 
     Intents.FLAGS.DIRECT_MESSAGE_TYPING    
 ] });
+const fs = require('fs');
+const token = fs.readFileSync('./token', 'utf8');
 const config = require("./global/config.json");
-const token = 'ODQxMzExOTc1NzIzMzY4NTA5.YJk61Q.C-v5spyv5NlPgSqC-SAmNP5xQB4';
 const axios = require("axios");
 var aToken = "";
 
