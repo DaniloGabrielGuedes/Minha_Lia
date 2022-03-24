@@ -13,7 +13,6 @@ var aToken = "";
 
 client.on("messageCreate", async (message) => {
     if (message.author.bot) return;
-    // if (message.channel.type == "dm") return;
     if (message.content == config.prefix) return;
     if (!message.content.toLowerCase().startsWith(config.prefix)) return;
     if (message.content.startsWith(`<@!${client.user.id}>`) 
@@ -22,23 +21,36 @@ client.on("messageCreate", async (message) => {
     const args = message.content.trim().slice(config.prefix.length).split(" ");
     const command = args.shift().toLowerCase();
     
-    axios.post("https://accounts.zoho.com/oauth/v2/token?refresh_token=1000.955f7590aa45683ddccc764ce6379458.25d070229c93af92142187a1e8597184&client_id=1000.5PK6SJXSM6A2N06EI3YJ6MAPFRVFAL&client_secret=15e13a61f3b5b95411be6e4eb1a24d596a877f554c&scope=Desk.tickets.ALL&grant_type=refresh_token").then(async data => {
+    if (message.channel.type == "DM") {
         try {
 
-            if (data.status == "200")
-                aToken = "Zoho-oauthtoken " + data.data["access_token"];
-            else
-                message.channel.send("Erro ao buscar access_token :c");
+            const commandFile = require(`./DMcommands/${command}.js`);
+            await commandFile.run(client, message, args);
 
-            var tempMsg = await message.reply("estou verificando!");
-            const commandFile = require(`./commands/${command}.js`);
-            await commandFile.run(client, message, args, aToken);
-            tempMsg.delete();
         } catch (err) {
             console.error("Erro: " + err);
-            message.channel.send("Erro: " + err);
+            message.channel.send("**Vish ala deu pau** \n" + err);
         }
-    })
+    }
+    else {
+        axios.post("https://accounts.zoho.com/oauth/v2/token?refresh_token=1000.955f7590aa45683ddccc764ce6379458.25d070229c93af92142187a1e8597184&client_id=1000.5PK6SJXSM6A2N06EI3YJ6MAPFRVFAL&client_secret=15e13a61f3b5b95411be6e4eb1a24d596a877f554c&scope=Desk.tickets.ALL&grant_type=refresh_token").then(async data => {
+            try {
+
+                if (data.status == "200")
+                    aToken = "Zoho-oauthtoken " + data.data["access_token"];
+                else
+                    message.channel.send("Erro ao buscar access_token :c");
+
+                var tempMsg = await message.reply("estou verificando!");
+                const commandFile = require(`./commands/${command}.js`);
+                await commandFile.run(client, message, args, aToken);
+                tempMsg.delete();
+            } catch (err) {
+                console.error("Erro: " + err);
+                message.channel.send("**Vish ala deu pau** \n" + err);
+            }
+        })        
+    }
 })
 
 client.login(token)
