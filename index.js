@@ -33,7 +33,7 @@ client.on("messageCreate", async (message) => {
         }
     }
     else {
-        axios.post("https://accounts.zoho.com/oauth/v2/token?refresh_token=1000.955f7590aa45683ddccc764ce6379458.25d070229c93af92142187a1e8597184&client_id=1000.5PK6SJXSM6A2N06EI3YJ6MAPFRVFAL&client_secret=15e13a61f3b5b95411be6e4eb1a24d596a877f554c&scope=Desk.tickets.ALL&grant_type=refresh_token").then(async data => {
+        axios.post(fs.readFileSync('./ZohoDesk', 'utf8')).then(async data => {
             try {
 
                 if (data.status == "200")
