@@ -29,7 +29,7 @@ client.on("messageCreate", async (message) => {
 
         } catch (err) {
             console.error("Erro: " + err);
-            message.channel.send("**Vish ala deu pau** \n" + err);
+            message.channel.send("**epaaaaaaaaa** \n" + err);
         }
     }
     else {
@@ -47,7 +47,7 @@ client.on("messageCreate", async (message) => {
                 tempMsg.delete();
             } catch (err) {
                 console.error("Erro: " + err);
-                message.channel.send("**Vish ala deu pau** \n" + err);
+                message.channel.send("**epaaaaaaaaa** \n" + err);
             }
         })        
     }
