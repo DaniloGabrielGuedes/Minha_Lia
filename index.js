@@ -43,11 +43,14 @@ client.on("messageCreate", async (message) => {
 
                 var tempMsg = await message.reply("estou verificando!");
                 const commandFile = require(`./commands/${command}.js`);
-                await commandFile.run(client, message, args, aToken);
-                tempMsg.delete();
+                await commandFile.run(client, message, args, aToken);                
             } catch (err) {
                 console.error("Erro: " + err);
-                message.channel.send("**Vish ala deu pau** \n" + err);
+                if (err.toString().includes("Cannot find module"))
+                    message.channel.send("Este comando ainda não existe. Consulte ***.ajuda*** para listar os comandos disponíveis :)");                
+                else
+                    message.channel.send("**Vish ala deu pau** \n" + err);
+                tempMsg.delete();
             }
         })        
     }
@@ -110,17 +113,22 @@ client.on('ready', () => {
             // })
         // }
 
-        // if ((date.getHours() === 13 && date.getMinutes() === 30) && date.getDay() == 5) {
-        //     client.channels.fetch("684017942307930147").then(channel => { // CANAL GERAL LAB1 SERVER 
-        //         channel.send("**Bom dia @everyone!**");
+        // if ((date.getHours() === 11 && date.getMinutes() === 30) && date.getDay() == 5) {
+            client.channels.fetch("841310589958881283").then(channel => { // CANAL GERAL LAB1 SERVER 
 
-        //         const embed = new Discord.MessageEmbed()
-        //         .setColor(0xffc9a0)
-        //         .setTitle("**Não se esqueçam de enviar o email com seus apontamentos.**")
-        //         .setTimestamp()
-        //         .setFooter("LAB1 Consultoria", "https://instagram.fsod2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/155536880_2558047587838075_1484160661346685355_n.jpg?_nc_ht=instagram.fsod2-1.fna.fbcdn.net&_nc_ohc=LmHZn5oQqPoAX-O_84Z&edm=ABfd0MgBAAAA&ccb=7-4&oh=472f5a2e4524902ad91c2d463e86be17&oe=60F87FBC&_nc_sid=7bff83")
-        //         channel.send(embed);
-        //     })
+                const ti = channel.guild.roles.cache.find(role => role.name == "Time");
+
+                channel.send("**Bom dia " + `${ti}` + "!**");
+
+                const embed = new MessageEmbed()
+                    .setColor("#2e8b57")
+                    .setTitle("**Por favor, não se esqueça de preencher os seus apontamentos.**")
+                    .setDescription("\r\n**__[https://sprints.zoho.com](https://sprints.zoho.com/team/lab1#globalview)__**")
+                    .setTimestamp()
+                    .setFooter({ text: "LAB1 Consultoria", iconURL: "https://cdn.discordapp.com/icons/684017942307930142/ba8f171a7a72b409f9a772ff046fa62d.webp" })
+                    .setThumbnail("https://play-lh.googleusercontent.com/Rs3SFvqpYwbVMVJHE4TNquBGSXzVWxlRqwPUZJrqLDh8czqjapZra_9m8AXsQavcah3I=w70-h70")
+                channel.send({ embeds: [embed] });
+            })
         // }
-    }, 60000); // check every minute
+    }, 6000); // check every minute
 })
