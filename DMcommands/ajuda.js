@@ -4,19 +4,19 @@ module.exports.run = async(client, message, args, aToken) => {
     const embed = {
         color: '0xffc9a0',
         title: `Bom dia! Lia v${config.version}`,
-        description: "Comandos disponíveis até o momento:",
+        description: "Comandos disponíveis em mensagens diretas até o momento:",
         fields: [
             {
                 name: "**.ajuda**",
                 value: "Mostra a lista de comandos disponíveis no momento"
             },
             {
-                name: "**.c {Nº Chamado}**",
-                value: "Detalha as informações do chamado desejado. Exemplo: **'.c 1000'**"
+                name: "**.m {Descrição da tarefa}**",
+                value: "Marca um novo horário iniciando no momento do envio da mensagem com a descrição inserida"
             },
             {
-                name: "**.o {Empresa} {Prioridade}**",
-                value: "Lista os chamados abertos de uma empresa específica (ou '.' para trazer todas), ordenando por prioridade. Exemplo: **'.o nutrisafra alto'**"
+                name: "**.limpar**",
+                value: "Fará a limpeza de todos os registros feitos"
             }         
         ]
     }
